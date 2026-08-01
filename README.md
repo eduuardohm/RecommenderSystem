@@ -6,6 +6,8 @@
 
 Este projeto implementa um sistema de recomendação baseado em clustering, utilizando o dataset MovieLens. O objetivo é agrupar filmes e usuários por padrões similares para gerar recomendações personalizadas.
 
+**OBS: Esse projeto ainda está em andamento.**
+
 ## Estrutura do Projeto
 
 ```
@@ -54,11 +56,8 @@ Utiliza o dataset MovieLens 100K contendo:
 
 1. Explore os dados com `01_exploracao_movielens.ipynb`
 2. Processe os dados com `02_preprocessamento_movielens.ipynb`
-3. Treine modelos utilizando os módulos em `src/models/`
 
 ## Contato
-
-Eduardo Marques - [@EduardoCodeAI](https://x.com/EduardoCodeAI) - ehms@ic.ufal.br
 
 Link do Projeto - [https://github.com/eduuardohm/RecommenderSystem](https://github.com/eduuardohm/RecommenderSystem) 
 
