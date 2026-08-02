@@ -16,21 +16,14 @@ Este projeto implementa um sistema de recomendação baseado em clustering, util
 │   ├── 01_exploracao_movielens.ipynb
 │   └── 02_preprocessamento_movielens.ipynb
 ├── src/
+│   ├── api/
 │   ├── data/
 │   │   └── load.py
-│   ├── models/
-│   │   └── KMeans.py
-│   └── utils/
+│   └── services/
 ├── data/
 │   ├── raw/
-│   │   └── ml-latest-small/
-│   │       ├── movies.csv
-│   │       ├── ratings.csv
-│   │       ├── tags.csv
-│   │       ├── links.csv
-│   │       └── README.txt
 │   └── processed/
-│       └── movielens_100k_interactions.csv
+├── docker-compose.yml
 └── README.md
 ```
 
