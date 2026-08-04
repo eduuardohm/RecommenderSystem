@@ -5,6 +5,7 @@ CREATE TABLE "users" (
 CREATE TABLE "movies" (
   "id" integer PRIMARY KEY,
   "title" varchar(255) NOT NULL
+  "year" integer NOT NULL
 );
 
 CREATE TABLE "genres" (

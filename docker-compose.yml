@@ -11,7 +11,19 @@ services:
             - "5432:5432"
         volumes:
             - postgres_data:/var/lib/postgresql/data
-            - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./src/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    etl:
+        build:
+            context: .
+            dockerfile: Dockerfile.etl
+        container_name: etl
+        volumes:
+            - ./data:/data
+        env_file:
+            - .env
+        depends_on:
+            - db
 
     pgadmin:
         container_name: pgadmin
