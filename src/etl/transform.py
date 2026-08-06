@@ -35,8 +35,14 @@ def transform_movies(df: pd.DataFrame) -> pd.DataFrame:
             }
         )
 
+        transformed_df["title"] = transformed_df["title"].str.strip()
+
         transformed_df["year"] = (
-            transformed_df["title"].str.extract(r"\((\d{4})\)$").astype(int)
+            pd.to_numeric(
+                transformed_df["title"].str.extract(r"\((\d{4})\)$")[0],
+                errors="coerce",
+            )
+            .astype("Int64")
         )
 
         transformed_df["title"] = (
