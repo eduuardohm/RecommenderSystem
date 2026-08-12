@@ -49,7 +49,7 @@ O projeto foi desenhado em microsserviços utilizando **Docker** e **Docker Comp
 │   ├── etl/
 │   │   ├── extract.py                  # Script para carregamento dos dados
 │   │   ├── transform.py                # Script para transformação dos dados
-│   │   ├── leoad.py                    # Script para carregamento dos dados no banco
+│   │   ├── load.py                    # Script para carregamento dos dados no banco
 │   │   └── pipeline.py                 # Orquestrador do pipeline de ETL
 │   │
 │   ├── database/

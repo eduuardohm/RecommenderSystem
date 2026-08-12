@@ -10,7 +10,8 @@ from transform import (
     transform_users,
     transform_ratings,
 )
-from load import create_engine, load_dataframe
+from load import load_dataframe
+from src.database.connection import create_engine
 
 logger = logging.getLogger(__name__)
 
