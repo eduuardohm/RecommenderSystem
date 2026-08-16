@@ -1,5 +1,6 @@
-import pandas as pd
 import logging
+
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,6 @@ def transform_movies(df: pd.DataFrame) -> pd.DataFrame:
         )
 
     logger.info("Iniciando transformação do dataset de filmes.")
-
     try:
         transformed_df = df.copy()
 
@@ -273,7 +273,6 @@ def transform_ratings(df: pd.DataFrame) -> pd.DataFrame:
         )
 
     logger.info("Iniciando transformação do dataset de ratings.")
-
     try:
         transformed_df = df.copy()
 

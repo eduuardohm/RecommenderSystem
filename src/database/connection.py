@@ -1,7 +1,8 @@
 import os
+
 from dotenv import load_dotenv
 from sqlalchemy import create_engine as sqlalchemy_create_engine
-from sqlalchemy.engine import Engine, URL
+from sqlalchemy.engine import URL, Engine
 
 load_dotenv()
 

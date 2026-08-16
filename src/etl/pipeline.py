@@ -1,16 +1,17 @@
-import os
 import logging
-from dotenv import load_dotenv
+import os
 
+from dotenv import load_dotenv
 from extract import extract_csv
+from load import load_dataframe
 from transform import (
-    transform_movies,
     transform_genres,
     transform_movie_genres,
-    transform_users,
+    transform_movies,
     transform_ratings,
+    transform_users,
 )
-from load import load_dataframe
+
 from src.database.connection import create_engine
 
 logger = logging.getLogger(__name__)

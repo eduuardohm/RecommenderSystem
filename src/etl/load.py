@@ -1,9 +1,7 @@
-import os
 import logging
+
 import pandas as pd
-from dotenv import load_dotenv
-from sqlalchemy import create_engine as sqlalchemy_create_engine
-from sqlalchemy.engine import Engine, Connection
+from sqlalchemy.engine import Connection
 
 logger = logging.getLogger(__name__)
 
