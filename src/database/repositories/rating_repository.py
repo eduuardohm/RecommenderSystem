@@ -1,47 +1,22 @@
-import pandas as pd
-from sqlalchemy import text
-from sqlalchemy.engine import Connection
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from src.models.rating import Rating
 
 
 class RatingRepository:
 
-    def __init__(self, connection: Connection):
-        self.connection = connection
+    def __init__(self, session: Session):
+        self.session = session
 
-    def get_all_ratings(self) -> pd.DataFrame:
-        query = text("""
-            SELECT *
-            FROM ratings
-            ORDER BY movie_id    
-        """)
+    def get_all(self) -> list[Rating]:
+        query = select(Rating).order_by(Rating.movie_id)
+        return list(self.session.scalars(query))
 
-        return pd.read_sql(
-            query, 
-            self.connection
-        )
+    def get_by_movie(self, movie_id: int) -> list[Rating]:
+        query = select(Rating).where(Rating.movie_id == movie_id)
+        return list(self.session.scalars(query))
 
-    def get_ratings_by_user(self, user_id: int) -> pd.DataFrame:
-        query = text("""
-            SELECT *
-            FROM ratings
-            WHERE user_id = :user_id
-        """)
-
-        return pd.read_sql(
-            query,
-            self.connection,
-            params={"user_id": user_id}
-        )
-
-    def get_ratings_by_movie(self, movie_id: int) -> pd.DataFrame:
-            query = text("""
-                SELECT *
-                FROM ratings
-                WHERE movie_id = :movie_id
-            """)
-    
-            return pd.read_sql(
-                query,
-                self.connection,
-                params={"movie_id": movie_id}
-            )
+    def get_by_user(self, user_id: int) -> list[Rating]:
+        query = select(Rating).where(Rating.user_id == user_id)
+        return list(self.session.scalars(query))

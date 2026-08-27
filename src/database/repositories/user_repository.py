@@ -1,34 +1,18 @@
-import pandas as pd
-from sqlalchemy import text
-from sqlalchemy.engine import Connection
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from src.models.user import User
 
 
 class UserRepository:
 
-    def __init__(self, connection: Connection):
-            self.connection = connection
+    def __init__(self, session: Session):
+        self.session = session
 
-    def get_all_users(self) -> pd.DataFrame:
-            query = text("""
-                SELECT id
-                FROM users
-                ORDER BY id    
-            """)
-    
-            return pd.read_sql(
-                query, 
-                self.connection
-            )
+    def get_all(self):
+        query = select(User).order_by(User.id)
+        return list(self.session.scalars(query))
 
-    def get_user_by_id(self, user_id: int) -> pd.DataFrame:
-        query = text("""
-            SELECT id
-            FROM users
-            WHERE id = :user_id
-        """)
+    def get_by_id(self, user_id: int) -> User:
+        return self.session.get(User, user_id)
     
-        return pd.read_sql(
-            query, 
-            self.connection,
-            params={"user_id": user_id}
-        )

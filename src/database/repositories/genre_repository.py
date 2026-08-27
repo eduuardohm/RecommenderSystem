@@ -1,34 +1,17 @@
-import pandas as pd
-from sqlalchemy import text
-from sqlalchemy.engine import Connection
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from src.models.genre import Genre
 
 
 class GenreRepository:
 
-    def __init__(self, connection: Connection):
-        self.connection = connection
+    def __init__(self, session: Session):
+        self.session = session
 
-    def get_all_genres(self) -> pd.DataFrame:
-        query = text("""
-            SELECT id, name
-            FROM genres
-            ORDER BY id    
-        """)
+    def get_all(self) -> list[Genre]:
+        query = select(Genre).order_by(Genre.id)
+        return list(self.session.scalars(query))
 
-        return pd.read_sql(
-            query, 
-            self.connection
-        )
-
-
-    def get_genre_by_id(self, genre_id: int) -> pd.DataFrame:
-        query = text("""
-            SELECT id, name
-            FROM genres
-            WHERE id = :genre_id
-        """)
-        return pd.read_sql(
-            query, 
-            self.connection, 
-            params={"genre_id": genre_id}
-        )
+    def get_by_id(self, genre_id: int) -> Genre:
+        return self.session.get(Genre, genre_id)

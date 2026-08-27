@@ -1,41 +1,50 @@
 import pytest
 
-from src.database.connection import create_engine
 from src.database.repositories.movie_repository import MovieRepository
+from src.database.session import SessionLocal
+from src.models.genre import Genre
+from src.models.movie import Movie
 
 
 @pytest.fixture
 def repository():
-    engine = create_engine()
-    
-    with engine.connect() as conn:
-        yield MovieRepository(conn)
+    with SessionLocal() as session:
+        yield MovieRepository(session)
 
 
-def test_get_all_movies(repository):
-    movies = repository.get_all_movies()
+def test_get_all(repository):
+    movies = repository.get_all()
 
-    assert not movies.empty
-    assert {"id", "title", "year"} <= set(movies.columns)
-
-
-def test_get_movie_by_id(repository):
-    movie = repository.get_movie_by_id(1)
-
-    assert not movie.empty
-    assert {"id", "title", "year"} <= set(movie.columns)
-    assert movie.iloc[0]["id"] == 1
+    assert len(movies) > 0
+    assert all(isinstance(movie, Movie) for movie in movies)
+    assert movies == sorted(movies, key=lambda movie: movie.id)
 
 
-def test_get_movies_by_ids(repository):
-    movies = repository.get_movies_by_ids([1, 2, 3])
+def test_get_by_id(repository):
+    movie = repository.get_by_id(1)
 
-    assert not movies.empty
-    assert {"id", "title", "year"} <= set(movies.columns)
+    assert movie is not None
+    assert isinstance(movie, Movie)
+    assert movie.id == 1
 
 
-def test_get_movie_genres(repository):
-    genres = repository.get_movie_genres(1)
+def test_id_not_found(repository):
+    movie = repository.get_by_id(9999999)
 
-    assert not genres.empty
-    assert {"id", "name"} <= set(genres.columns)
+    assert movie is None
+
+
+def test_get_by_ids(repository):
+    movies = repository.get_by_ids([1, 2, 3])
+
+    assert len(movies) > 0
+    assert all(isinstance(movie, Movie) for movie in movies)
+
+
+def test_get_genres_by_id(repository):
+    genres = repository.get_genres_by_id(1)
+
+    print(genres)
+
+    assert len(genres) > 0
+    assert all(isinstance(genre, Genre) for genre in genres)

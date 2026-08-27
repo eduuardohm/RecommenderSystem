@@ -10,7 +10,7 @@ CREATE TABLE "movies" (
 
 CREATE TABLE "genres" (
   "id" integer PRIMARY KEY,
-  "name" varchar(255) UNIQUE NOT NULL
+  "name" varchar(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE "movie_genres" (

@@ -1,8 +1,25 @@
+# Variáveis de ambiente
 .env
+
+# Ambiente virtual
 venv/
 .venv/
+
+# Python
 __pycache__/
+*.py[cod]
+*.pyo
+
+# Jupyter
 .ipynb_checkpoints/
 
+# Dados locais
 data/
-__init__.py
+
+# Testes
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs e editores
+.vscode/
